@@ -16,7 +16,7 @@
   <thead><tr>
   <!-- <th></th>   -->
 	<th><%=l(:label_project)%></th>
-	<th><%=l(:field_description)%></th>
+  <!-- <th><%=l(:field_description)%></th> -->
 	<th><%=l(:field_go_to)%></th>
 	<th><%=l(:field_created_on)%></th>
   </tr></thead>
@@ -24,8 +24,8 @@
 <% project_tree(@projects) do |project, level| %>
   <tr class="<%= cycle("odd", "even") %> <%= project.css_classes %> <%= level > 0 ? "idnt idnt-#{level}" : nil %>">
   <!-- <td><span class="my-project"/><%=  %></td>   -->
-	<td class="name"><span><%= link_to_project(project, {:action => 'show'}, :title => project.short_description) %></span></td>
-	<td><%= project.short_description %></td>
+	<td class="name"><span title="<%= project.short_description %>"><%= link_to_project(project, {:action => 'show'}, :title => project.short_description) %></span></td>
+  <!-- <td><%= project.short_description %></td> -->
 	<td>
 	<%= 
 	  links = []
