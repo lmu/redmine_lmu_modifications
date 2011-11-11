@@ -1,0 +1,57 @@
+<% content_for :header_tags do %>
+    <%= auto_discovery_link_tag(:atom, {:action => 'index', :format => 'atom', :key => User.current.rss_key}) %>
+<% end %>
+
+<div class="contextual">
+    <%= link_to(l(:label_project_new), {:controller => 'projects', :action => 'new'}, :class => 'icon icon-add') + ' |' if User.current.allowed_to?(:add_project, nil, :global => true) %>
+    <%= link_to(l(:label_issue_view_all), { :controller => 'issues' }) + ' |' if User.current.allowed_to?(:view_issues, nil, :global => true) %>
+    <%= link_to(l(:label_overall_spent_time), { :controller => 'time_entries' }) + ' |' if User.current.allowed_to?(:view_time_entries, nil, :global => true) %>
+    <%= link_to l(:label_overall_activity), { :controller => 'activities', :action => 'index' }%>
+</div>
+
+<h2><%=l(:label_project_plural)%></h2>
+
+<div class="autoscroll">
+<table class="list">
+  <thead><tr>
+  <!-- <th></th>   -->
+	<th><%=l(:label_project)%></th>
+	<th><%=l(:field_description)%></th>
+	<th><%=l(:field_go_to)%></th>
+	<th><%=l(:field_created_on)%></th>
+  </tr></thead>
+  <tbody>
+<% project_tree(@projects) do |project, level| %>
+  <tr class="<%= cycle("odd", "even") %> <%= project.css_classes %> <%= level > 0 ? "idnt idnt-#{level}" : nil %>">
+  <!-- <td><span class="my-project"/><%=  %></td>   -->
+	<td class="name"><span><%= link_to_project(project, {:action => 'show'}, :title => project.short_description) %></span></td>
+	<td><%= project.short_description %></td>
+	<td>
+	<%= 
+	  links = []
+	  menu_items_for(:project_menu, project) do |node|
+      links << link_to(extract_node_details(node, project)[0], extract_node_details(node, project)[1]) unless node.name == :overview
+    end
+    links.join(", ")
+    # content_tag('ul', links.join("\n"))
+     %>
+  </td>
+	<td align="center"><%= format_date(project.created_on) %></td>
+	
+  </tr>
+<% end %>
+  </tbody>
+</table>
+</div>
+
+<% if User.current.logged? %>
+<p style="text-align:right;">
+<span class="my-project"><%= l(:label_my_projects) %></span>
+</p>
+<% end %>
+
+<% other_formats_links do |f| %>
+	<%= f.link_to 'Atom', :url => {:key => User.current.rss_key} %>
+<% end %>
+
+<% html_title(l(:label_project_plural)) -%>
