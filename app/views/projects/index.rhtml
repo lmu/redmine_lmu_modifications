@@ -14,7 +14,7 @@
 <div class="autoscroll">
 <table class="list">
   <thead><tr>
-  <!-- <th></th>   -->
+  <th></th>  
 	<th><%=l(:label_project)%></th>
   <!-- <th><%=l(:field_description)%></th> -->
 	<th><%=l(:field_go_to)%></th>
@@ -23,7 +23,7 @@
   <tbody>
 <% project_tree(@projects) do |project, level| %>
   <tr class="<%= cycle("odd", "even") %> <%= project.css_classes %> <%= level > 0 ? "idnt idnt-#{level}" : nil %>">
-  <!-- <td><span class="my-project"/><%=  %></td>   -->
+  <td><%= favorite_tag(project, User.current) %></td>  
 	<td class="name"><span title="<%= project.short_description %>"><%= link_to_project(project, {:action => 'show'}, :title => project.short_description) %></span></td>
   <!-- <td><%= project.short_description %></td> -->
 	<td>
@@ -46,7 +46,7 @@
 
 <% if User.current.logged? %>
 <p style="text-align:right;">
-<span class="my-project"><%= l(:label_my_projects) %></span>
+<span class="my-project"><%= l(:label_favorite_projects) %></span>
 </p>
 <% end %>
 

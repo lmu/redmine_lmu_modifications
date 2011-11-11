@@ -1,3 +1,4 @@
 # English strings go here for Rails i18n
 en:
   field_go_to: Go to module
+  label_favorite_projects: Favorite projects
