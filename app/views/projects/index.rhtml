@@ -28,12 +28,11 @@
   <!-- <td><%= project.short_description %></td> -->
 	<td>
 	<%= 
-	  links = []
-	  menu_items_for(:project_menu, project) do |node|
-      links << link_to(extract_node_details(node, project)[0], extract_node_details(node, project)[1]) unless node.name == :overview
-    end
-    links.join(", ")
-    # content_tag('ul', links.join("\n"))
+	  # links = []
+	  #    menu_items_for(:project_menu, project) do |node|
+	  #      links << link_to(extract_node_details(node, project)[0], extract_node_details(node, project)[1]) unless node.name == :overview
+	  #    end
+	  #    links.join(", ")
      %>
   </td>
 	<td align="center"><%= format_date(project.created_on) %></td>
