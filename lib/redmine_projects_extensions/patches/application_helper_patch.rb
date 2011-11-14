@@ -16,7 +16,8 @@ module RedmineProjectsExtensions
         # Adds a rates tab to the user administration page
         def render_project_jump_box_with_only_favorites
           return unless User.current.logged?
-          projects = User.current.memberships.collect(&:project).compact.uniq.select{|p| FavoriteProject.favorite?(p.id) }
+          favorite_projects_ids = FavoriteProject.find_by_user_id(User.current.id).map(&:project_id)
+          projects = User.current.memberships.collect(&:project).compact.uniq.select{|p| favorite_projects_ids.include?(p.id) }
           if projects.any?
             s = '<select onchange="if (this.value != \'\') { window.location = this.value; }">' +
             "<option value=''>#{ l(:label_jump_to_a_project) }</option>" +
