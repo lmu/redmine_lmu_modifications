@@ -17,7 +17,7 @@ module RedmineProjectsExtensions
         def render_project_jump_box_with_only_favorites
           return unless User.current.logged?
           favorite_projects = FavoriteProject.find_by_user_id(User.current.id) || []
-          favorite_projects_ids = favorite_projects.map(&:project_id)
+          favorite_projects_ids = favorite_projects.to_a.map(&:project_id)
           projects = User.current.memberships.collect(&:project).compact.uniq.select{|p| favorite_projects_ids.include?(p.id) }
           if projects.any?
             s = '<select onchange="if (this.value != \'\') { window.location = this.value; }">' +
