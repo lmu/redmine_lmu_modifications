@@ -4,8 +4,8 @@ class CreateFavoriteProjects < ActiveRecord::Migration
       t.column :project_id, :integer
       t.column :user_id, :integer
     end
+    add_index :favorite_projects, [:project_id, :user_id]
   end
-  add_index :favorite_projects, [:project_id, :user_id]
   
 
   def self.down
