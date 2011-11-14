@@ -24,7 +24,6 @@ module FavoriteProjectsHelper
   
   def favorite_project_modules_links(project)
     links = []
-    return
     menu_items_for(:project_menu, project) do |node|
        links << link_to(extract_node_details(node, project)[0], extract_node_details(node, project)[1]) unless node.name == :overview
     end
