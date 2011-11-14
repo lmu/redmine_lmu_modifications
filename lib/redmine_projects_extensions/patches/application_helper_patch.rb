@@ -18,7 +18,7 @@ module RedmineProjectsExtensions
           return unless User.current.logged?
           favorite_projects = FavoriteProject.find(:all, :conditions => {:user_id => User.current.id})
           favorite_projects_ids = favorite_projects.map(&:project_id)
-          projects = User.current.memberships.collect(&:project).compact.uniq.select{|p| favorite_projects_ids.include?(p.id) }
+          projects = User.current.memberships.collect(&:project).compact.uniq.select{|p| !favorite_projects_ids.include?(p.id) }
           if projects.any?
             s = '<select onchange="if (this.value != \'\') { window.location = this.value; }">' +
             "<option value=''>#{ l(:label_jump_to_a_project) }</option>" +
