@@ -5,6 +5,8 @@ class CreateFavoriteProjects < ActiveRecord::Migration
       t.column :user_id, :integer
     end
   end
+  add_index :favorite_projects, [:project_id, :user_id]
+  
 
   def self.down
     drop_table :favorite_projects
