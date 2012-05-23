@@ -10,7 +10,7 @@ Redmine::Plugin.register :redmine_favorite_projects do
   name 'Redmine Favorite Projects plugin'
   author 'RedmineCRM'
   description 'This is a plugin for Redmine'
-  version '0.0.1'
+  version '0.0.2'
   url 'http://redminecrm.com'
   author_url 'mailto:kirbez@redminecrm.com'
 end
