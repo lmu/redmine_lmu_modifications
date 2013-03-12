@@ -1,0 +1,12 @@
+== Redmine Favorite Projects plugin changelog
+
+Favorite Projects plugin - Redmine project views improvements
+Copyright (C) 2011-2013  Kirill Bezrukov
+http://www.redminecrm.com/projects/favoriteprojects
+
+== 2013-03-12 v1.0.0
+
+* Redmine 2.1+ support
+* Ajax favorite/unfavorite
+* Ajax searching
+* Filters
