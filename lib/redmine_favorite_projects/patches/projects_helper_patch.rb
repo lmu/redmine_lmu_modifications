@@ -15,7 +15,7 @@ module RedmineFavoriteProjects
   end
 end
 
-Dispatcher.to_prepare do  
+ActionDispatch::Reloader.to_prepare do  
   unless ProjectsHelper.included_modules.include?(RedmineFavoriteProjects::Patches::ProjectsHelperPatch)
     ProjectsHelper.send(:include, RedmineFavoriteProjects::Patches::ProjectsHelperPatch)
   end

@@ -18,7 +18,7 @@ module RedmineFavoriteProjects
           return unless User.current.logged?
           favorite_projects = FavoriteProject.find(:all, :conditions => {:user_id => User.current.id})
           favorite_projects_ids = favorite_projects.map(&:project_id)
-          projects = User.current.memberships.collect(&:project).compact.uniq.select{|p| !favorite_projects_ids.include?(p.id) }
+          projects = User.current.memberships.collect(&:project).compact.uniq.select{|p| !favorite_projects_ids.include?(p.id) && p.active? }
           if projects.any?
             s = '<select onchange="if (this.value != \'\') { window.location = this.value; }">' +
             "<option value=''>#{ l(:label_jump_to_a_project) }</option>" +
@@ -27,7 +27,7 @@ module RedmineFavoriteProjects
               { :value => url_for(:controller => 'projects', :action => 'show', :id => p, :jump => current_menu_item) } 
             end
             s << '</select>'
-            s
+            s.html_safe
           end        
         end
         
@@ -37,7 +37,7 @@ module RedmineFavoriteProjects
   end
 end
 
-Dispatcher.to_prepare do  
+ActionDispatch::Reloader.to_prepare do  
   unless ApplicationHelper.included_modules.include?(RedmineFavoriteProjects::Patches::ApplicationHelperPatch)
     ApplicationHelper.send(:include, RedmineFavoriteProjects::Patches::ApplicationHelperPatch)
   end

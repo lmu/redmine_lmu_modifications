@@ -1,7 +1,25 @@
 class FavoriteProjectsController < ApplicationController
   unloadable
-  before_filter :find_project_by_project_id
+  before_filter :find_project_by_project_id, :except => :search
   
+  def search
+    seach = params[:q] || params[:project_search]
+
+    scope = Project
+    scope = scope.active unless params[:closed]
+    scope = scope.scoped(:conditions =>   ["(LOWER(#{Project.table_name}.name) LIKE ? OR 
+                                             LOWER(#{Project.table_name}.description) LIKE ?)", 
+                                                                  "%" + seach.downcase + "%",
+                                                                  "%" + seach.downcase + "%"] ) unless seach.blank?
+
+    @projects = scope.visible.order('lft').all
+
+    respond_to do |format|
+      format.html { render :template => "projects/index"}
+      format.js { render :partial => "search" }
+    end
+  end
+
   def favorite
     if @project.respond_to?(:visible?) && !@project.visible?(User.current)
       render_403
@@ -31,10 +49,11 @@ class FavoriteProjectsController < ApplicationController
     
     respond_to do |format|
       format.html { redirect_to :back }
+      format.js { render :partial => 'set_favorite' }
     end
 
   rescue ::ActionController::RedirectBackError
-    render :text => (watching ? 'Favorite added.' : 'Favorite removed.'), :layout => true
+    render :text => (favorite ? 'Favorite added.' : 'Favorite removed.'), :layout => true
   end
 
 end

@@ -5,6 +5,11 @@ module RedmineFavoriteProjects
 
       def self.included(base) # :nodoc:
         base.send(:include, InstanceMethods)
+
+        base.class_eval do
+          helper :favorite_projects
+        end
+
       end
 
       module InstanceMethods
@@ -52,7 +57,7 @@ module RedmineFavoriteProjects
   end
 end
 
-Dispatcher.to_prepare do  
+ActionDispatch::Reloader.to_prepare do   
   unless ProjectsController.included_modules.include?(RedmineFavoriteProjects::Patches::ProjectsControllerPatch)
     ProjectsController.send(:include, RedmineFavoriteProjects::Patches::ProjectsControllerPatch)
   end
