@@ -1,3 +1,5 @@
+require_dependency 'application_helper'
+
 module RedmineFavoriteProjects
   module Patches
 

@@ -11,24 +11,25 @@
                   :id => nil } %>
 </div>
 
-<h2><%=l(:label_project_plural)%></h2>
+<%= form_tag({:controller => "favorite_projects", :action => "search"}, :method => :get,  :id => "query_form") do %> 
+  <% no_filters = (params[:closed].blank? && params[:project_search].blank?) %> 
 
+<h2>
+  <%=l(:label_project_plural)%>
 
+        <span class="live_search">  
+            <%= text_field_tag(:project_search, params[:project_search], :autocomplete => "off", :class => "live_search_field", :placeholder => l(:label_search) ) %>    
+            <%= javascript_tag "observeSearchfield('project_search', 'null', '#{ escape_javascript(search_favorite_projects_path(:format => "js")) }')" %>  
+        </span>
+</h2>
 
 
 <div class="filters">   
-  <%= form_tag({:controller => "favorite_projects", :action => "search"}, :method => :get,  :id => "query_form") do %> 
-    <% no_filters = (params[:closed].blank? && params[:project_search].blank?) %> 
 
     <fieldset id="filters" class="collapsible <%= 'collapsed' if no_filters %>">
       <legend onclick="toggleFieldset(this);"><%= l(:label_filter_plural) %></legend>
       <div style="<%= 'display: none;' if no_filters %>">  
         <p>  
-          <span class="filter-condition">        
-            <%= label_tag l(:label_search) + " "  %>
-            <%= text_field_tag(:project_search, params[:project_search], :autocomplete => "off", :class => "project-search", :placeholder => l(:label_search), :autocorrect => "off" ) %>    
-            <%= javascript_tag "observeSearchfield('project_search', 'null', '#{ escape_javascript(search_favorite_projects_path(:format => "js")) }')" %>  
-          </span>
           <span class="filter-condition">        
             <label for="closed"><%= check_box_tag 'closed', 1, params[:closed] %> <%= l(:label_show_closed_projects) %></label>
           </span>
@@ -44,10 +45,10 @@
     </p>   
 
                                                          
-  <% end %>  
 
 </div>
 
+<% end %>  
 
 <div class="autoscroll" id="projects_list">
   <%= render :partial => 'projects/list' %>
