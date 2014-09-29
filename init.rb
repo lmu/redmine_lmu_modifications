@@ -1,17 +1,10 @@
-require 'redmine'
 
-Redmine::Plugin.register :redmine_favorite_projects do
-  name 'Redmine Favorite Projects plugin'
-  author 'RedmineCRM'
-  description 'This is a favorite projects plugin for Redmine'
-  version '1.0.1'
-  url 'http://redminecrm.com/projects/favoriteprojects'
-  author_url 'mailto:support@redminecrm.com'
-
-  requires_redmine :version_or_higher => '2.1.2'
-
+Redmine::Plugin.register :redmine_lmu_modifications do
+  name 'Redmine LMU modifications plugin'
+  author 'AlphaNodes GmbH'
+  description 'Customizing for LMU Redmine'
+  version '0.0.1'
+  author_url 'http://alphanodes.de'
 end
 
-require 'redmine_favorite_projects/patches/application_helper_patch'
-require 'redmine_favorite_projects/patches/projects_controller_patch'
-require 'redmine_favorite_projects/patches/projects_helper_patch'
+require 'redmine_lmu_modifications/patches/application_helper_patch'
