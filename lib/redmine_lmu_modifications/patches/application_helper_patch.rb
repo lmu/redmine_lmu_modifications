@@ -46,8 +46,3 @@ module RedmineLmuModifications
     end
   end
 end
-
-# now we should include this module in ApplicationHelper module
-unless ApplicationHelper.included_modules.include? RedmineLmuModifications::Patches::ApplicationHelperPatch
-  ApplicationHelper.send(:include, RedmineLmuModifications::Patches::ApplicationHelperPatch)
-end

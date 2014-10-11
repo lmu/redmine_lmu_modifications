@@ -1,3 +1,5 @@
+# encoding: utf-8
+#
 
 Redmine::Plugin.register :redmine_lmu_modifications do
   name 'Redmine LMU modifications plugin'
@@ -7,4 +9,6 @@ Redmine::Plugin.register :redmine_lmu_modifications do
   author_url 'http://alphanodes.de'
 end
 
-require 'redmine_lmu_modifications/patches/application_helper_patch'
+unless ApplicationHelper.included_modules.include? RedmineLmuModifications::Patches::ApplicationHelperPatch
+  ApplicationHelper.send(:include, RedmineLmuModifications::Patches::ApplicationHelperPatch)
+end
