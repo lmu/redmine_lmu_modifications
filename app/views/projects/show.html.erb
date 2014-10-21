@@ -11,7 +11,7 @@
   <% end %>
 </div>
 
-<h2><%= l(:label_overview) + ': ' + @project.identifier.html_safe %></h2>
+<h2><%= l(:label_overview) %></h2>
 
 <% unless @project.active? %>
   <p class="warning"><span class="icon icon-lock"><%= l(:text_project_closed) %></span></p>
@@ -24,6 +24,8 @@
   </div>
   <% end %>
   <ul>
+    <li><%=l(:field_name)%>: <%= @project.name.html_safe %></li>
+    <li><%=l(:field_identifier)%>: <%= @project.identifier.html_safe %></li>
   <% unless @project.homepage.blank? %>
     <li><%=l(:field_homepage)%>: <%= link_to h(@project.homepage), @project.homepage %></li>
   <% end %>
