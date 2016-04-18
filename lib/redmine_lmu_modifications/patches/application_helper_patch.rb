@@ -5,20 +5,15 @@ require_dependency 'application_helper'
 
 module RedmineLmuModifications
   module Patches
-
     module ApplicationHelperPatch
-
       def self.included(base) # :nodoc:
         base.send(:include, InstanceMethods)
-
         base.class_eval do
-          unloadable
           alias_method_chain :page_header_title, :breadcrumb
         end
       end
 
       module InstanceMethods
-
         def short_header_title
           h(Setting.app_title)
         end
@@ -40,9 +35,7 @@ module RedmineLmuModifications
             b.join(" \xc2\xbb ").html_safe
           end
         end
-
       end
-
     end
   end
 end
