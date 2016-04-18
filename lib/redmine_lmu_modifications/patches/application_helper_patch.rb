@@ -21,7 +21,7 @@ module RedmineLmuModifications
         def page_header_title_with_breadcrumb
           unless @project.nil? || @project.new_record?
             b = []
-            ancestors = (@project.root? ? [] : @project.ancestors.visible.all)
+            ancestors = (@project.root? ? [] : @project.ancestors.visible.to_a)
             if ancestors.any?
               root = ancestors.shift
               b << link_to_project(root, {:jump => current_menu_item}, :class => 'root')
