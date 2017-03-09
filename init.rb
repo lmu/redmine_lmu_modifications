@@ -1,6 +1,8 @@
 # encoding: utf-8
 #
 
+require 'redmine'
+
 Redmine::Plugin.register :redmine_lmu_modifications do
   name 'Redmine LMU modifications plugin'
   author 'AlphaNodes GmbH'
